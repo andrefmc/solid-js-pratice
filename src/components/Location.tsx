@@ -1,4 +1,4 @@
-import { createSignal, For } from 'solid-js';
+import { createSignal, For, Show } from 'solid-js';
 import AddCharacter from './AddCharacter';
 import CharacterCard from './CharacterCard';
 
@@ -19,14 +19,25 @@ const initialCharacters: Character[] = [
 
 const Location = (props: LocationProps) => {
   const [characters, setCharacters] = createSignal(initialCharacters);
+  const [addCharacterIsOpen, setAddCharacterIsOpen] = createSignal(false);
 
   const totalCharacters = () => characters().length;
 
   return (
     <div class="p-6 max-w-4xl mx-auto bg-soldier-grey rounded-xl flex items-start flex-col space-y-4">
-      <div>
+      <div class="flex flex-row justify-between w-full ">
         <h1 class="font-bold text-lg">{props.name}</h1>
-        <AddCharacter setCharacters={setCharacters} />
+        <Show
+          when={addCharacterIsOpen()}
+          fallback={
+            <button class="font-bold text-xl" onClick={() => setAddCharacterIsOpen(!addCharacterIsOpen())}>
+              {' '}
+              +{' '}
+            </button>
+          }
+        >
+          <AddCharacter setCharacters={setCharacters} />
+        </Show>
       </div>
       <div class="flex flex-row gap-6 flex-wrap">
         <For each={characters()}>

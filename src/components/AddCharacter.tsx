@@ -5,7 +5,7 @@ interface AddCharacterProps {
   setCharacters: Setter<Character[]>;
 }
 
-const emptyCharacter: Character = { name: '', title: '', level: 0 };
+const emptyCharacter: Character = { name: '', title: '', level: 1 };
 
 const AddCharacter = (props: AddCharacterProps) => {
   const [newCharacter, setNewCharacter] = createSignal(emptyCharacter);
@@ -17,28 +17,30 @@ const AddCharacter = (props: AddCharacterProps) => {
   };
 
   return (
-    <form>
-      <div>
+    <form class="flex flex-col gap-4">
+      <div class="flex flex-row justify-between w-60 gap-2">
         <label for="name">Name</label>
         <input
           id="name"
           value={newCharacter().name}
+          placeholder="Jon Doe"
           onInput={e => {
             setNewCharacter({ ...newCharacter(), name: e.currentTarget.value });
           }}
         />
       </div>
-      <div>
+      <div class="flex flex-row justify-between w-60 gap-2">
         <label for="title">Title</label>
         <input
           id="title"
           value={newCharacter().title}
+          placeholder="The Master of Unkown"
           onInput={e => {
             setNewCharacter({ ...newCharacter(), title: e.currentTarget.value });
           }}
         />
       </div>
-      <div>
+      <div class="flex flex-row justify-between w-60 gap-2">
         <label for="level">Level</label>
         <input
           id="level"
